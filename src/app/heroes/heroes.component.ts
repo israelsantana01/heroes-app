@@ -18,7 +18,20 @@ export class HeroesComponent implements OnInit {
 
   getHeroes(): void {
     this.heroService.getHeroes().subscribe
-    (heroes => this.heroes = heroes);
+      (heroes => this.heroes = heroes);
+  }
+
+  /*  Method that add hero in server and clear input used. */
+    /* String: trim() = delete spaces on words. At start and end  */ 
+  add(name: string): void {
+    name = name.trim();
+    if (!name) {
+      return;
+    }
+    this.heroService.addHero({ name } as Hero)
+    .susbcribe(hero => {
+      this.heroes.push(hero);
+    });
   }
 
 }
