@@ -22,16 +22,22 @@ export class HeroesComponent implements OnInit {
   }
 
   /*  Method that add hero in server and clear input used. */
-    /* String: trim() = delete spaces on words. At start and end  */ 
+  /* String: trim() = delete spaces on words. At start and end  */
   add(name: string): void {
     name = name.trim();
     if (!name) {
       return;
     }
     this.heroService.addHero({ name } as Hero)
-    .susbcribe(hero => {
-      this.heroes.push(hero);
-    });
+      .subscribe(hero => {
+        this.heroes.push(hero);
+      });
+  }
+
+  /* Delete a hero at list */
+  delete(hero: Hero): void {
+    this.heroes = this.heroes.filter(heroDelete => heroDelete !== hero);
+    this.heroService.deleteHero(hero).subscribe();
   }
 
 }
